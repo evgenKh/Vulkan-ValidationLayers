@@ -364,6 +364,29 @@ static const std::map<CMD_TYPE, DrawDispatchVuid> drawdispatch_vuid = {
         "VUID-vkCmdDrawMeshTasksIndirectCountNV-flags-02696",
         "VUID-vkCmdDrawMeshTasksIndirectCountNV-None-02686",
     }},
+    {CMD_DRAWINDIRECTBYTECOUNTEXT, {
+        "VUID-vkCmdDrawIndirectByteCountEXT-commandBuffer-cmdpool",
+        "VUID-vkCmdDrawIndirectByteCountEXT-renderpass",
+        "VUID-vkCmdDrawIndirectByteCountEXT-None-02700",
+        "VUID-vkCmdDrawIndirectByteCountEXT-commandBuffer-02701",
+        "VUID-vkCmdDrawIndirectByteCountEXT-None-04007",
+        "VUID-vkCmdDrawIndirectByteCountEXT-None-04008",
+        "VUID-vkCmdDrawIndirectByteCountEXT-None-02697",
+        "VUID-vkCmdDrawIndirectByteCountEXT-renderPass-02684",
+        "VUID-vkCmdDrawIndirectByteCountEXT-subpass-02685",
+        "VUID-vkCmdDrawIndirectByteCountEXT-sampleLocationsEnable-02689",
+        "VUID-vkCmdDrawIndirectByteCountEXT-None-02690",
+        "VUID-vkCmdDrawIndirectByteCountEXT-None-02692",
+        "VUID-vkCmdDrawIndirectByteCountEXT-commandBuffer-02711",
+        "VUID-vkCmdDrawIndirectByteCountEXT-buffer-02708",
+        "VUID-vkCmdDrawIndirectByteCountEXT-buffer-02709",
+        "VUID-vkCmdDrawIndirectByteCountEXT-viewportCount-03417",
+        "VUID-vkCmdDrawIndirectByteCountEXT-scissorCount-03418",
+        "VUID-vkCmdDrawIndirectByteCountEXT-viewportCount-03419",
+        "VUID-vkCmdDrawIndirectByteCountEXT-primitiveTopology-03420",
+        "VUID-vkCmdDrawIndirectByteCountEXT-flags-02696",
+        "VUID-vkCmdDrawIndirectByteCountEXT-None-02686",
+    }},
     // Used if invalid cmd_type is used
     {CMD_NONE, {
         kVUIDUndefined,
@@ -583,6 +606,14 @@ bool CoreChecks::PreCallValidateCmdDrawIndexedIndirectCount(VkCommandBuffer comm
                                                             uint32_t maxDrawCount, uint32_t stride) const {
     return ValidateCmdDrawIndexedIndirectCount(commandBuffer, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride,
                                                "vkCmdDrawIndexedIndirectCount");
+}
+
+bool CoreChecks::PreCallValidateCmdDrawIndirectByteCountEXT(VkCommandBuffer commandBuffer, uint32_t instanceCount,
+                                                            uint32_t firstInstance, VkBuffer counterBuffer,
+                                                            VkDeviceSize counterBufferOffset, uint32_t counterOffset,
+                                                            uint32_t vertexStride) const {
+    return ValidateCmdDrawType(commandBuffer, false, VK_PIPELINE_BIND_POINT_GRAPHICS, CMD_DRAWINDIRECTBYTECOUNTEXT,
+                               "vkCmdDrawIndirectByteCountEXT()", VK_QUEUE_GRAPHICS_BIT);
 }
 
 bool CoreChecks::PreCallValidateCmdTraceRaysNV(VkCommandBuffer commandBuffer, VkBuffer raygenShaderBindingTableBuffer,
