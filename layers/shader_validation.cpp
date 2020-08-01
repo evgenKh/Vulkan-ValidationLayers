@@ -814,8 +814,7 @@ static std::vector<std::pair<uint32_t, interface_var>> CollectInterfaceByInputAt
                 if (accessible_ids.count(id)) {
                     auto def = src->get_def(id);
                     assert(def != src->end());
-
-                    if (def.opcode() == spv::OpVariable && insn.word(3) == spv::StorageClassUniformConstant) {
+                    if (def.opcode() == spv::OpVariable && def.word(3) == spv::StorageClassUniformConstant) {
                         auto num_locations = GetLocationsConsumedByType(src, def.word(1), false);
                         for (unsigned int offset = 0; offset < num_locations; offset++) {
                             interface_var v = {};
